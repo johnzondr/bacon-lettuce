@@ -6,24 +6,35 @@
 			<i><%= place.address %></i><br /><br />
 			<p><%= place.description %></p><br />
 
+			     
+	        	<div class="col-xs-6 col-md-3">
+		        	<% if place.photos.last.present? && place.photos.last.attachment.present? %>
+			          	<a href="#" class="thumbnail text-center" title='<%= place.photos.last.caption %>'>       
+				            <%= image_tag place.photos.last.attachment_url %>
+				            <%= place.photos.last.caption %>
+			          	</a>
+		        	<% end %>
+	        	</div>      
+    		
+
 			<% if place.user.present? %>
 				<small><%= place.user.email %></small>
 			<% end %>
 
-		<% if place.comments.present? %>
-		<div class = "row">
-			<div class = "col-xs-12">
-		      <blockquote>
-		        <% if place.comments.last.humanized_rating.present? %>
-		          <b><%= place.comments.last.humanized_rating %></b> -
-		        <% end %>
+			<% if place.comments.present? %>
+			<div class = "row">
+				<div class = "col-xs-12">
+		      		<blockquote>
+				        <% if place.comments.last.humanized_rating.present? %>
+				          <b><%= place.comments.last.humanized_rating %></b> -
+				        <% end %>
 		          
-		        <%= place.comments.last.message %>
-		        <small><%= place.comments.last.user.email %></small>
-		      </blockquote>
-	    	</div>
-		</div>
-	<% end %>
+		        		<%= place.comments.last.message %>
+		        		<small><%= place.comments.last.user.email %></small>
+		      		</blockquote>
+	    		</div>
+			</div>
+			<% end %>
 		</div>
 	</div>
 	

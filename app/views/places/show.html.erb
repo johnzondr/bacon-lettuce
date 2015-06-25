@@ -38,40 +38,46 @@
 
 	<div class="pull-right">
 		<% if current_user && current_user == @place.user %>
+<!--       <button class="btn btn-success pull-right" data-toggle="modal" data-target="#PhotoModal" style="margin-right: 10px;">
+      Upload a Picture
+      </button> -->
+      <%= link_to 'Upload a Picture','#' ,:class => 'btn btn-success', "data-toggle" => "modal", "data-target" => '#PhotoModal' %>
 			<%= link_to 'Edit', edit_place_path(@place), :class => 'btn btn-primary' %>
 			<%= link_to 'Delete', place_path(@place), :method => :delete, :data => {:confirm =>'Are you sure you want to delete this?'}, :class => 'btn btn-danger' %>
+
 		<% end %>
 	</div>
 </div>
 
-<div class="clear"></div>
-
-  <div class ="booyah-box col-xs-10 col-xs-offset-1">
-    <h1>Photos</h1>  
-    
-    <% @place.photos.each do |photo| %>
-      <div class="col-xs-6 col-md-3">
-        <% if photo.attachment.present? %>
-          <a href="#" class="thumbnail" title='<%= photo.caption %>'>       
-            <%= image_tag photo.attachment_url %>
-          </a>
-        <% end %>
+<div class="clear">
+  
+</div>
+<!-- Photo Modal -->
+<div class="modal fade" id="PhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Upload a Picture</h4>
       </div>
-    <% end %>
-
+      
+        <%= simple_form_for @photo, :url => place_photos_path(@place) do |f| %>
+        <div class="modal-body">
+          <%= f.input :attachment %>
+          <%= f.input :caption %>
+        </div>                        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit "Upload", :class => 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<div class="clear"></div>
- <%= simple_form_for @photo, :url => place_photos_path(@place) do |f| %>
-    <%= f.input :caption %>
-    <%= f.input :attachment %> 
-    <%= f.submit "Add a photo", :class => 'btn btn-primary' %>
- <% end %>
+</div>
 
 
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- comment Modal -->
+<div class="modal fade" id="CommentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -93,14 +99,39 @@
   </div>
 </div>
 
-<div class="col-xs-10 col-xs-offset-1">
+  <div class ="booyah-box col-xs-10 col-xs-offset-1">
+    <h1>Photos</h1>  
+    <div class = "row">
+    <% @place.photos.each do |photo| %>
+      
+        <div class="col-xs-6 col-md-3">
+        <% if photo.attachment.present? %>
+          <a href="#" class="thumbnail text-center" title='<%= photo.caption %>'>       
+            <%= image_tag photo.attachment_url %>
+            <%= photo.caption %>
+          </a>
+
+        <% end %>
+        </div>
+      
+    <% end %>
+    </div>
+
+  </div>
+
+
+
+
+<div class="col-xs-10 col-xs-offset-1 booyah-box">
 <!-- Button trigger modal -->
-  <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+  <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#CommentModal">
     Add a comment
   </button>
   <h1 class="pull-left">Comments</h1>
-</div>
-<div class="clearfix" ></div>
+  <div class="clear"></div>
+
+
+
   <% @place.comments.each do |comment| %>
     <div class = "col-xs-12 col-sm-6">
       <blockquote>
@@ -113,3 +144,4 @@
       </blockquote>
     </div>
   <% end %>
+</div>
