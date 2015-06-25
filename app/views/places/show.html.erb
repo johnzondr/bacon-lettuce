@@ -46,20 +46,24 @@
 
 <div class="clear"></div>
 
-  <h1>Photos</h1>  
-  <div>
-  <% @place.photos.each do |photo| %>
-    <% if photo.caption.present? %>
-      <%= photo.caption %>
-      <%= image_tag photo.attachment_url %>
+  <div class ="booyah-box col-xs-10 col-xs-offset-1">
+    <h1>Photos</h1>  
+    
+    <% @place.photos.each do |photo| %>
+      <div class="col-xs-6 col-md-3">
+        <% if photo.attachment.present? %>
+          <a href="#" class="thumbnail" title='<%= photo.caption %>'>       
+            <%= image_tag photo.attachment_url %>
+          </a>
+        <% end %>
+      </div>
     <% end %>
-  <% end %>
 
   </div>
-
+<div class="clear"></div>
  <%= simple_form_for @photo, :url => place_photos_path(@place) do |f| %>
     <%= f.input :caption %>
-    <%= f.file_field :attachment %> 
+    <%= f.input :attachment %> 
     <%= f.submit "Add a photo", :class => 'btn btn-primary' %>
  <% end %>
 
