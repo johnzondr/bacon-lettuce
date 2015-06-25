@@ -51,13 +51,15 @@
   <% @place.photos.each do |photo| %>
     <% if photo.caption.present? %>
       <%= photo.caption %>
+      <%= image_tag photo.attachment_url %>
     <% end %>
   <% end %>
 
   </div>
-  
+
  <%= simple_form_for @photo, :url => place_photos_path(@place) do |f| %>
-    <%= f.input :caption %> 
+    <%= f.input :caption %>
+    <%= f.file_field :attachment %> 
     <%= f.submit "Add a photo", :class => 'btn btn-primary' %>
  <% end %>
 
