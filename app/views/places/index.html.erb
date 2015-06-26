@@ -7,14 +7,14 @@
 			<p><%= place.description %></p><br />
 
 			     
-	        	<div class="col-xs-6 col-md-3">
-		        	<% if place.photos.last.present? && place.photos.last.attachment.present? %>
+		        <% if place.photos.last.present? && place.photos.last.attachment.present? %>
+	        		<div class="col-xs-6 col-md-3">
 			          	<a href="#" class="thumbnail text-center" title='<%= place.photos.last.caption %>'>       
 				            <%= image_tag place.photos.last.attachment_url %>
 				            <%= place.photos.last.caption %>
 			          	</a>
-		        	<% end %>
-	        	</div>      
+	        		</div>      
+		        <% end %>
     		
 
 			<% if place.user.present? %>
