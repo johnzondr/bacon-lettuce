@@ -41,7 +41,7 @@
 			<p><%= place.description %></p><br />			
 			<% if place.user.present? %>
 				<small><%= place.user.email %></small>
-			<% end %>
+			<% end %><div class="clear"></div>
 
 		        <% if place.photos.last.present? && place.photos.last.attachment.present? %>
 	        		<div class="col-xs-6 col-md-3">
