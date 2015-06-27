@@ -4,9 +4,11 @@
 		<div class ="booyah-box col-xs-10 col-xs-offset-1">
 			<h1><%= link_to place.name, place_path(place) %></h1><br />
 			<i><%= place.address %></i><br /><br />
-			<p><%= place.description %></p><br />
+			<p><%= place.description %></p><br />			
+			<% if place.user.present? %>
+				<small><%= place.user.email %></small>
+			<% end %>
 
-			     
 		        <% if place.photos.last.present? && place.photos.last.attachment.present? %>
 	        		<div class="col-xs-6 col-md-3">
 			          	<a href="#" class="thumbnail text-center" title='<%= place.photos.last.caption %>'>       
@@ -17,9 +19,7 @@
 		        <% end %>
     		
 
-			<% if place.user.present? %>
-				<small><%= place.user.email %></small>
-			<% end %>
+
 
 			<% if place.comments.present? %>
 			<div class = "row">
